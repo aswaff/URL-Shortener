@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { trackPromise } from 'react-promise-tracker';
+import LoadingSpinerComponent from './spinner';
 class Shortener extends React.Component {
     constructor(props) {
       super(props);
@@ -19,20 +20,14 @@ class Shortener extends React.Component {
   
     handleSubmit(event) {
         this.state.value === '' ? this.setState( {inputclass: "alertinput" } ) :
-        // this.state.value === '' ? alert("Enter a URL") :
-
+        trackPromise(
         fetch(`https://api.shrtco.de/v2/shorten?url=${this.state.value}`)
         .then(response => response.json())
-        .then(url => this.setState( {shortinfo: url.result } ));
-        // .then(json => console.log(json.result.short_link)); actually works
-        // .then(short_link => this.setState({ value: short_link }));
-        
+        .then(url => this.setState( {shortinfo: url.result } ))
+        );
     
     
       event.preventDefault();
-
-    //   console.log(this.json)
-    // }
 }
 
     
@@ -42,12 +37,15 @@ class Shortener extends React.Component {
           <div>
             <form onSubmit={this.handleSubmit}>
                 <label>
-                    <input placeholder="  URL Shortener" class={this.state.inputclass} type="text" value={this.state.value} onChange={this.handleChange} />
+                    <input placeholder="  URL Shortener" className={this.state.inputclass} type="text" value={this.state.value} onChange={this.handleChange} />
                 </label>
-                <input class="inputfield" type="submit" value="Submit" />
+                <input className="inputfield" type="submit" value="Submit" />
              </form>
-         <p>{this.state.shortinfo.short_link}</p>
-        </div>
+          <div>
+          <p></p>
+          <LoadingSpinerComponent />
+            {this.state.shortinfo.short_link}</div>
+          </div>
         
       );
     }
