@@ -5,7 +5,8 @@ class Shortener extends React.Component {
       super(props);
       this.state = {
                     value: '',
-                    shortinfo: ''
+                    shortinfo: '',
+                    inputclass: "urlfield"
                     }
   
       this.handleChange = this.handleChange.bind(this);
@@ -17,6 +18,9 @@ class Shortener extends React.Component {
     }
   
     handleSubmit(event) {
+        this.state.value === '' ? this.setState( {inputclass: "alertinput" } ) :
+        // this.state.value === '' ? alert("Enter a URL") :
+
         fetch(`https://api.shrtco.de/v2/shorten?url=${this.state.value}`)
         .then(response => response.json())
         .then(url => this.setState( {shortinfo: url.result } ));
@@ -28,21 +32,21 @@ class Shortener extends React.Component {
       event.preventDefault();
 
     //   console.log(this.json)
-    }
+    // }
+}
 
     
   
     render() {
       return (
           <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            URL:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-        <p>{this.state.shortinfo.short_link}</p>
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    <input placeholder="  URL Shortener" class={this.state.inputclass} type="text" value={this.state.value} onChange={this.handleChange} />
+                </label>
+                <input class="inputfield" type="submit" value="Submit" />
+             </form>
+         <p>{this.state.shortinfo.short_link}</p>
         </div>
         
       );
