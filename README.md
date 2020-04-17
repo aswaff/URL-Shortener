@@ -66,3 +66,12 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### React-promise-tracker, and React Spinners
+
+Easy way to add animations while fetching data, so the user know an action is taking place in the background.
+
+Implement Promise tracker: https://www.npmjs.com/package/react-promise-tracker
+Implement React Spinners: http://www.davidhu.io/react-spinners/ 
+
+
